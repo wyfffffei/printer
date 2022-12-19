@@ -24,6 +24,12 @@ def read_config(path="config.json"):
 
 def main():
     path = "./buffer"
+    if not os.path.exists("buffer"):
+        from sys import exit
+        print("Buffer directory not found.")
+        input("按任意键退出")
+        exit(-1)
+
     if not os.path.exists("output"):
         os.mkdir("output")
 
@@ -42,11 +48,12 @@ def main():
         print(new_img.size)
         print("rate: " + str(new_img.size[0] / new_img.size[1]))
         now_time = time.strftime("%Y%m%d%H%M%S")
-        new_img.save("./output/{}/{}-{}.jpg".format(start_time, now_time, str(ind)))
+        new_img.save("./output/{}/{}-{}.jpg".format(start_time, now_time, str(ind+1)))
         print("picture saved: ./output/{}/{}-{}.jpg".format(start_time, now_time, str(ind+1)))
         print()
         printer(new_img)
     print("Done")
+    input("按任意键退出..")
 
 
 if __name__ == "__main__":
