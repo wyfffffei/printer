@@ -32,6 +32,9 @@ def padding_pic(img):
 
 
 def reg_pic(pictures, path, config):
+    """
+    @ func @  regulate pictures
+    """
 
     width = config["width"]
     height = config["height"]
@@ -49,6 +52,10 @@ def reg_pic(pictures, path, config):
         if image.size[0] < image.size[1]:
             image = rotate_pic(image)
         image.thumbnail((width, height), Image.Resampling.LANCZOS)
+        print(image.size, end=" -> ")
+        # second resize to make sure the picture as large as possible
+        padding_rate = min(width / image.size[0], height / image.size[1])
+        image = image.resize((int(padding_rate) * image.size[0], int(padding_rate) * image.size[1]))
         print(image.size)
         new_image.paste(image, (
             w_margin + (idp % 2) * width,
